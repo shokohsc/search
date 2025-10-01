@@ -17,7 +17,7 @@ spec:
             - name: SENTRY_DSN
               value: https://2f15ffed2e254ced911e78de9312afe0\@glitchtip.shokohsc.home/1
             - name: API_URL
-              value: sidekick.shokohsc.home
+              value: dev.sidekick.shokohsc.home
           resources:
             requests:
               cpu: 10m

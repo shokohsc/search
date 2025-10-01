@@ -7,7 +7,9 @@ export const useSearchStore = defineStore("search", {
   state: () => ({
     query: "",
     results: [],
+    suggestions: [],
     loading: false,
+    loadingSuggestions: false,
     error: null,
     duration: null,
   }),
@@ -15,10 +17,10 @@ export const useSearchStore = defineStore("search", {
   actions: {
     /**
      * Trigger a search against the external API.
-     * @param {string} query – The search term.
+     * @param {string} q – The search term.
      */
-    async fetchResults(query) {
-      this.query = query;
+    async fetchResults(q) {
+      this.query = q
       this.loading = true;
       this.error = null;
       this.duration = null;
@@ -27,7 +29,16 @@ export const useSearchStore = defineStore("search", {
 
       try {
         const response = await fetch(
-          `https://${API_BASE}/search?query=${encodeURIComponent(query)}`
+          `https://${API_BASE}/search`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              query: q,
+              count: 20
+            })
+          }
         );
 
         if (!response.ok) {
@@ -63,4 +74,3 @@ if (import.meta.hot) {
 }
 
 export default useSearchStore;
-
