@@ -28,28 +28,30 @@
                                 {{ result.link }}
                             </a>
                         </p>
-                        <p class="is-5 is-flex is-align-items-center">
+                        <p class="is-size-5 is-flex is-align-items-center">
                             <img
                                 v-if="faviconUrl(result.link)"
                                 :src="faviconUrl(result.link)"
                                 alt=""
                                 class="favicon"
                                 height="24"
+                                loading="lazy"
+                                @error="handleFaviconError"
                             />
                             <a :href="result.link" target="_blank" rel="noopener noreferrer">
                                 {{ result.title }}
                             </a>
                         </p>
 
-                        <p>
-                            <span v-if="result.date" class="has-text-grey is-size-7 mr-2">
+                        <p class="mb-2">
+                            <span v-if="result.date" class="has-text-grey is-size-6">
                                 {{ result.date }}
                             </span>
                             {{ result.snippet }}
                         </p>
 
                         <p v-if="result.provider" class="is-size-7 has-text-grey has-text-right">
-                            {{ result.provider }}
+                            {{ result.provider.toUpperCase() }}
                         </p>
                     </div>
                 </article>
@@ -97,15 +99,21 @@ const faviconUrl = (url) => {
     try {
         const host = new URL(url).origin;
         return `${host}/favicon.ico`;
-    } catch (_) {
-        return null;
+    } catch (e) {
+        console.error(e);
+        return `favicon.svg`;
     }
+};
+
+// Add this function to handle favicon loading errors
+const handleFaviconError = (event) => {
+    event.target.src = 'favicon.svg';
 };
 </script>
 
 <style scoped>
 .result {
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid rgb(84, 84, 84);
     margin-bottom: 1rem;
 }
 .favicon {
