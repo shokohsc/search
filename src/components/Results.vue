@@ -22,7 +22,7 @@
 
             <div v-else>
                 <article v-for="(result, index) in searchStore.results" :key="index">
-                    <div class="result">
+                    <div class="box result">
                         <p class="is-size-6">
                             <a class="has-text-grey" :href="result.link" target="_blank" rel="noopener noreferrer">
                                 {{ result.link }}
