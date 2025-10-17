@@ -1,7 +1,10 @@
 <template>
     <section class="section">
         <div class="container">
-            <SearchInput v-model="localSearch" @search="onSearch" />
+            <h1 class="title has-text-centered">
+                <RouterLink class="has-text-white" to="/">Cute Search Engine</RouterLink>
+            </h1>
+            <SearchInput />
             <h1 class="title has-text-centered mb-2">Results for “{{ searchStore.query }}”</h1>
             <p v-if="searchStore.duration" class="subtitle is-6 has-text-centered has-text-grey">
                 {{ searchStore.results.length }} results fetched in {{ searchStore.duration }} ms
@@ -62,38 +65,9 @@
 
 <script setup>
 import { useSearchStore } from '@/stores/search';
-import { useRoute, useRouter } from 'vue-router';
-import { ref, watch, onMounted } from 'vue';
 import SearchInput from './SearchInput.vue';
 
 const searchStore = useSearchStore();
-const route = useRoute();
-const router = useRouter();
-
-const localSearch = ref('');
-
-onMounted(() => {
-    const query = route.query.q;
-    if (query) {
-        localSearch.value = query;
-        searchStore.fetchResults(query);
-    }
-});
-const onSearch = async () => {
-    await searchStore.fetchResults(localSearch.value);
-    router.push({ name: 'Results', query: { q: localSearch.value } });
-};
-
-watch(
-    () => route.query.q,
-    async (newQuery) => {
-        if (newQuery !== searchStore.query) {
-            localSearch.value = newQuery || '';
-            await searchStore.fetchResults(newQuery || '');
-        }
-    },
-    { immediate: true }
-);
 
 const faviconUrl = (url) => {
     try {

@@ -15,10 +15,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, inject, watch } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useSearchStore } from '@/stores/search';
-const bangs = inject('bangs')
+const bang = inject('bang')
 
 const route = useRoute();
 const router = useRouter();
@@ -26,35 +26,31 @@ const searchStore = useSearchStore();
 
 const searchTerm = ref('');
 
-onMounted(() => {
-    const query = route.query.q;
-    if (query) {
-        searchTerm.value = query;
+onMounted(async () => {
+    try {
+        const query = route.query.q;
+        if (query) {
+            searchTerm.value = query;
+            await onSearch();
+        }
+    } catch (e) {
+        console.log(e)
+        Promise.reject(e)
     }
 });
 
 // Run the search and go to the results page
 const onSearch = async () => {
-    const bangMatch = bangs.find(b => searchTerm.value.startsWith(b.bang))
-    if (undefined !== bangMatch) {
-        await window.open(bangMatch.url.replace('%s', encodeURIComponent(searchTerm.value.substring(bangMatch.bang.length + 1))), "_blank")
-        return
-    }
-    await searchStore.fetchResults(searchTerm.value);
-    router.push({ name: 'Results', query: { q: searchTerm.value } }); // push query param
-};
-
-watch(
-    () => route.query.q,
-    async (q) => {
-        if (q) {
-            const bangMatch = bangs.find(b => q.startsWith(b.bang))
-            if (undefined !== bangMatch) {
-                await window.open(bangMatch.url.replace('%s', encodeURIComponent(q.substring(bangMatch.bang.length + 1))), "_blank")
-                return
-            }
+    try {
+        const b = await bang(searchTerm.value)
+        if (undefined !== b) {
+            return undefined
         }
-    },
-    { immediate: true }
-);
+        await searchStore.fetchResults(searchTerm.value);
+        router.push({ name: 'Results', query: { q: searchTerm.value } }); // push query param
+    } catch (e) {
+        console.log(e)
+        Promise.reject(e)
+    }
+};
 </script>

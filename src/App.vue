@@ -26,8 +26,4 @@ const setRandomBackground = async () => {
 onMounted(async () => {
     await setRandomBackground()
 });
-
 </script>
-
-<style>
-</style>
