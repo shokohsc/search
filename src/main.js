@@ -35,7 +35,7 @@ const bang = async (query) => {
     ]
 
     try {
-        const bangMatch = bangs.find(b => query.startsWith(b.bang))
+        const bangMatch = bangs.find(b => query.startsWith(b.bang + ''))
         if (undefined === bangMatch)
             return undefined
         await window.open(bangMatch.url.replace('%s', encodeURIComponent(query.substring(bangMatch.bang.length + 1))), "_blank")
