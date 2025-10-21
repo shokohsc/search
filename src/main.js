@@ -13,7 +13,7 @@ const bang = async (query) => {
         { bang: "!c",       url: "https://www.conjugaisonfrancaise.com/recherche.html?q=%s" },
         { bang: "!tr",      url: "https://www.deepl.com/fr/translator#en/fr/%s" },
         { bang: "!hub",     url: "https://hub.docker.com/search?q=%s" },
-        { bang: "!du",      url: "https://https://duckduckgo.com/?q=%s" },
+        { bang: "!du",      url: "https://duckduckgo.com/?q=%s" },
         { bang: "!img",     url: "https://duckduckgo.com/?q=%s&iax=images&ia=images" },
         { bang: "!ft",      url: "https://fitgirl-repacks.site/?s=%s" },
         { bang: "!gc",      url: "https://getcomics.org/?s=%s" },
