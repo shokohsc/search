@@ -29,6 +29,8 @@ const bang = async (query) => {
         { bang: "!iad",     url: "https://www.phind.com/search?q=%s&c=&source=searchbox&init=true" },
         { bang: "!re",      url: "https://www.reddit.com/search/?q=%s" },
         { bang: "!rt",      url: "https://www.rottentomatoes.com/search?search=%s" },
+        { bang: "!st",      url: "https://store.steampowered.com/search?term=%s" },
+        { bang: "!wi",      url: "https://en.wikipedia.org/wiki/%s" },
         { bang: "!wr",      url: "https://www.wordreference.com/enfr/%s" },
         { bang: "!yt",      url: "https://www.youtube.com/results?search_query=%s" },
         { bang: "!yr",      url: "https://www.yr.no/en/search?q=%s" },
