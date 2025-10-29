@@ -7,6 +7,7 @@ export const useSearchStore = defineStore("search", {
   state: () => ({
     query: "",
     results: [],
+    remainingRequests: 0,
     suggestions: [],
     loading: false,
     loadingSuggestions: false,
@@ -53,6 +54,32 @@ export const useSearchStore = defineStore("search", {
       } finally {
         this.loading = false;
         this.duration = Date.now() - start;
+      }
+    },
+    async fetchRemainingRequests() {
+      this.loading = true;
+      this.error = null;
+
+      try {
+        const response = await fetch(
+          `https://${API_BASE}/search/remaining/requests`, {
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`API returned ${response.status}`);
+        }
+
+        const data = await response.json();
+        this.remainingRequests = data;
+      } catch (err) {
+        this.error = err.message || "Unknown error";
+        this.remainingRequests = 0;
+      } finally {
+        this.loading = false;
       }
     },
   },

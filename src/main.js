@@ -9,7 +9,7 @@ import router from './router.js'
 const bang = async (query) => {
     const bangs = [
         { bang: "!az",      url: "https://www.amazon.fr/s?k=%s" },
-        { bang: "!gpt",     url: "https://chatgpt.com/?q=%s"},
+        { bang: "!gpt",     url: "https://chatgpt.com/?q=%s" },
         { bang: "!c",       url: "https://www.conjugaisonfrancaise.com/recherche.html?q=%s" },
         { bang: "!tr",      url: "https://www.deepl.com/fr/translator#en/fr/%s" },
         { bang: "!hub",     url: "https://hub.docker.com/search?q=%s" },
@@ -24,7 +24,7 @@ const bang = async (query) => {
         { bang: "!imdb",    url: "https://www.imdb.com/find?s=all&q=%s" },
         { bang: "!d",       url: "https://www.larousse.fr/dictionnaires/francais/%s" },
         { bang: "!npm",     url: "https://www.npmjs.com/search?q=%s" },
-        { bang: "!ow",      url: "https://open-webui.shokohsc.home/?q=%s"},
+        { bang: "!ow",      url: "https://open-webui.shokohsc.home/?q=%s" },
         { bang: "!ia",      url: "https://www.perplexity.ai/search/?q=%s" },
         { bang: "!iad",     url: "https://www.phind.com/search?q=%s&c=&source=searchbox&init=true" },
         { bang: "!re",      url: "https://www.reddit.com/search/?q=%s" },
