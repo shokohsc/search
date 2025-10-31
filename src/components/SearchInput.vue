@@ -43,7 +43,7 @@ onMounted(async () => {
 const onSearch = async () => {
     try {
         await searchStore.fetchRemainingRequests()
-        if (0 === searchStore.remainingRequests)
+        if (!searchTerm.value.startsWith('!') && 0 === searchStore.remainingRequests)
             searchTerm.value = `!du ${searchTerm.value}`
         const b = await bang(searchTerm.value)
         if (undefined !== b) {
